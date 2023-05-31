@@ -22,10 +22,17 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <img src={logo} className="App-logo" alt="logo" />
         <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
           <button onClick={this.toggleClock}>Toggle Clock</button>
-          {this.state.showClock ? <Clock /> : "Clocks are disabled"}
+          {this.state.showClock ? (
+            <Clock
+              zone={["Asia/Singapore", "Asia/Seoul", "America/New_York"]}
+              gmt={["GMT +8", "GMT +9", "GMT -5"]}
+            />
+          ) : (
+            "Clocks are disabled"
+          )}
         </header>
       </div>
     );

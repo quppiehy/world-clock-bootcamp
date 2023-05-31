@@ -1,4 +1,7 @@
 import React from "react";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 export default class Clock extends React.Component {
   constructor(props) {
@@ -29,23 +32,25 @@ export default class Clock extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Singapore Time: {this.state.time.toLocaleTimeString()} GMT +8</h1>
-        <h1>
-          Korea Time:
-          {this.state.time.toLocaleTimeString("ko-KR", {
-            timeZone: "Asia/Seoul",
-          })}{" "}
-          GMT +9
-        </h1>
-        <h1>
-          USA Time (New York):{" "}
-          {this.state.time.toLocaleTimeString("en-US", {
-            timeZone: "America/New_York",
-          })}{" "}
-          GMT -5
-        </h1>
-      </div>
+      <Container>
+        {this.props.zone && this.props.zone.length > 0 ? (
+          this.props.zone.map((zone, index) => (
+            <Row key={zone}>
+              <Col>
+                <h2>{zone}</h2>
+              </Col>
+              <Col>
+                {this.state.time.toLocaleTimeString("en-US", {
+                  timeZone: zone,
+                })}
+              </Col>
+              <Col>{this.props.gmt[index]}</Col>
+            </Row>
+          ))
+        ) : (
+          <p>No zones passed</p>
+        )}
+      </Container>
     );
   }
 }
